@@ -35,6 +35,14 @@ const log = (tipo, titulo, desc) => {
   db.actividad.unshift({ id: nextId(db.actividad), tipo, titulo, desc, fecha: `${todayISO()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`, leida: false })
 }
 
+// Sincroniza en vivo entre pestañas del mismo navegador (ej. profesor y alumno lado a lado)
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (e) => {
+    if (e.key !== KEY || !e.newValue) return
+    try { db = JSON.parse(e.newValue); listeners.forEach((fn) => fn(clone(db))) } catch { /* */ }
+  })
+}
+
 export const store = {
   get: () => clone(db),
   subscribe: (fn) => { listeners.add(fn); return () => listeners.delete(fn) },
