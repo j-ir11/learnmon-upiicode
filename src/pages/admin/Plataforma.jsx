@@ -206,7 +206,7 @@ function Solicitudes() {
 export default function Plataforma() {
   const { db, api, toast } = useApp()
   const [tab, setTab] = useState('Módulos')
-  const total = MODULES.filter((m) => db.modulos.includes(m.key)).reduce((s, m) => s + m.price, 0) + 499
+  const total = MODULES.filter((m) => db.modulos.includes(m.key)).reduce((s, m) => s + m.price, 0) + 1000
   const extras = db.solicitudes.filter((s) => s.estado === 'Entregada').reduce((a, s) => a + s.cotizacion.mensual, 0)
 
   return (
@@ -223,7 +223,7 @@ export default function Plataforma() {
           <div className="rounded-2xl bg-white/10 px-6 py-4 text-right">
             <p className="text-xs uppercase tracking-wider text-white/60">Mensualidad actual</p>
             <motion.p key={total + extras} initial={{ scale: 1.2, color: '#badb24' }} animate={{ scale: 1, color: '#fff' }} className="font-display text-4xl font-extrabold">{money(total + extras)}</motion.p>
-            <p className="text-[11px] text-white/50">Plan base {money(499)} + módulos{extras ? ' + a la medida' : ''}</p>
+            <p className="text-[11px] text-white/50">Plan base {money(1000)} + módulos{extras ? ' + a la medida' : ''}</p>
           </div>
         </div>
       </motion.div>
