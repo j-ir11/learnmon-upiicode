@@ -7,7 +7,7 @@
 import * as seed from '../data/seed'
 import { LIMMYS } from '../data/catalogs'
 
-const KEY = 'upiicode_lemontree_db_v1'
+const KEY = 'upiicode_lemontree_db_v2'
 const listeners = new Set()
 const wait = (ms = 350) => new Promise((r) => setTimeout(r, ms))
 const clone = (o) => JSON.parse(JSON.stringify(o))
@@ -17,7 +17,7 @@ function freshDB() {
   return clone({
     cursos: seed.cursos, usuarios: seed.usuarios, grupos: seed.grupos, promociones: seed.promociones,
     pagos: seed.pagos, actividad: seed.actividad, misiones: seed.misiones, asistencias: seed.asistencias,
-    observaciones: seed.observaciones, reservas: seed.reservas, notificaciones: seed.notificaciones,
+    observaciones: seed.observaciones, reservas: seed.reservas, notificaciones: seed.notificaciones, solicitudes: seed.solicitudes,
     modulos: ['usuarios', 'cobranza', 'expedientes', 'promociones', 'grupos', 'profesor', 'gamificacion', 'conversacion'],
   })
 }
@@ -81,7 +81,7 @@ export const api = {
       return clone(u)
     },
     demoUser(rol) {
-      const id = { Administrador: 1, Profesor: 11, Alumno: 104 }[rol]
+      const id = { Administrador: 1, Profesor: 11, Alumno: 101 }[rol]
       return clone(db.usuarios.find((u) => u.id === id))
     },
   },
@@ -180,6 +180,21 @@ export const api = {
     },
     async cancelarReserva(id) { await wait(300); db.reservas = db.reservas.filter((r) => r.id !== id); commit() },
     async leerNotificaciones(alumnoId) { db.notificaciones = db.notificaciones.filter((n) => n.alumnoId !== alumnoId); commit() },
+  },
+
+  solicitudes: {
+    ...crud('solicitudes'),
+    async enviar(data) {
+      await wait(900)
+      const item = { ...data, id: nextId(db.solicitudes), fecha: todayISO(), estado: 'Recibida' }
+      db.solicitudes.unshift(item)
+      log('sistema', 'Solicitud enviada a UPIICODE', `"${data.titulo}" · cotización preliminar ${'$'}${data.cotizacion.min.toLocaleString('es-MX')} - ${'$'}${data.cotizacion.max.toLocaleString('es-MX')}`)
+      commit(); return clone(item)
+    },
+    async avanzar(id, estado) {
+      await wait(500)
+      const s = db.solicitudes.find((x) => x.id === id); s.estado = estado; commit()
+    },
   },
 
   plataforma: {

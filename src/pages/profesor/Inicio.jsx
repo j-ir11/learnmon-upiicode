@@ -35,7 +35,7 @@ export default function Inicio() {
           <div className="flex-1">
             <p className="text-xs font-bold uppercase tracking-[.2em] text-lime">{new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
             <h2 className="font-display text-3xl font-extrabold">{saludo}, teacher {user.nombre} 👋</h2>
-            <p className="text-sm text-white/75">Tienes <b className="text-lime">{t.alertas.filter((a) => a.tipo !== 'sobresaliente').length} alumnos</b> que necesitan seguimiento y <b className="text-lime">{clases.filter((c) => isToday(c.when)).length} clase(s)</b> hoy.</p>
+            <p className="text-sm text-white/75">Tienes <b className="text-lime">{t.alertas.filter((a) => a.tipo !== 'sobresaliente').length} alumno(s)</b> que necesitan seguimiento y <b className="text-lime">{clases.filter((c) => isToday(c.when)).length} clase(s)</b> hoy.</p>
           </div>
         </div>
       </motion.div>
@@ -97,7 +97,7 @@ export default function Inicio() {
                       <p className="font-bold">{c.g.nombre} · {c.hora}</p>
                       <span className={`text-xs font-semibold ${i === 0 ? 'text-lime' : 'text-forest'}`}>{isToday(c.when) ? 'Hoy' : cap(c.when.toLocaleDateString('es-MX', { weekday: 'long' }))}</span>
                     </div>
-                    <p className={`text-xs ${i === 0 ? 'text-white/70' : 'text-black/50'}`}>{curso(c.g.cursoId)?.nombre} · {c.g.alumnos.length} alumnos</p>
+                    <p className={`text-xs ${i === 0 ? 'text-white/70' : 'text-black/50'}`}>{curso(c.g.cursoId)?.nombre} · {c.g.alumnos.length} {c.g.alumnos.length === 1 ? 'alumno' : 'alumnos'}</p>
                   </div>
                 </motion.div>
               ))}

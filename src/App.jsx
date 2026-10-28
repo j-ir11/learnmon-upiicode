@@ -1,5 +1,5 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { LayoutDashboard, Users, FolderOpen, Sparkles, Shapes, GraduationCap, Home, ClipboardCheck, Target, Award, School } from 'lucide-react'
+import { LayoutDashboard, Users, FolderOpen, Sparkles, Shapes, GraduationCap, Home, ClipboardCheck, Target, Award, School, Blocks } from 'lucide-react'
 import { AppProvider, useApp } from './context/AppContext'
 import Layout from './components/Layout'
 import Splash from './pages/Splash'
@@ -27,11 +27,11 @@ const adminNav = [
   { to: '/admin/promociones', label: 'Promociones', title: 'Marketing y Promos', icon: Sparkles, module: 'promociones' },
   { to: '/admin/grupos', label: 'Grupos', title: 'Gestión de Grupos', icon: Shapes, module: 'grupos' },
   { to: '/admin/cursos', label: 'Cursos', title: 'Gestión de Cursos', icon: GraduationCap, module: 'grupos' },
+  { to: '/admin/plataforma', label: 'Mi Plan', title: 'Mi plan UPIICODE', icon: Blocks },
 ]
 const adminExtra = [
   { to: '/admin/perfil', title: 'Configuración Perfil' },
   { to: '/admin/actividad', title: 'Historial de Actividad' },
-  { to: '/admin/plataforma', title: 'Mi plan UPIICODE' },
 ]
 const profNav = [
   { to: '/profesor', label: 'Inicio', title: 'Centro de Control', icon: Home },
