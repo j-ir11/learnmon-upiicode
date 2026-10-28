@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
-import { Coins, Minus, Plus, Trophy, Crown } from 'lucide-react'
+import { Coins, Minus, Plus, Trophy, Crown, Star } from 'lucide-react'
 import { Avatar, Segmented, Badge } from '../../components/ui'
 import { useApp } from '../../context/AppContext'
 import { teacherData } from './helpers'
 import { cap, daysLeftInMonth } from '../../utils/format'
 import { INSIGNIAS } from '../../data/catalogs'
+import { InsIcon } from '../../components/icons'
 
 export default function Reconocimientos() {
   const { db, user, api, toast } = useApp()
@@ -28,7 +29,7 @@ export default function Reconocimientos() {
     setEstrella(a.id)
     await api.reconocimientos.insignia(a.id, 'estrella')
     confetti({ particleCount: 140, spread: 80, origin: { y: .6 }, colors: ['#badb24', '#f5d005', '#52723e', '#fff496'] })
-    toast(`${a.nombre.split(' ')[0]} nominado como Alumno del Mes ⭐`)
+    toast(`${a.nombre.split(' ')[0]} nominado como Alumno del Mes`)
   }
 
   return (
@@ -63,8 +64,8 @@ export default function Reconocimientos() {
           <motion.div key={a.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * .04 }} className="flex flex-wrap items-center gap-3 px-3 py-3">
             <Avatar u={a} size={42} />
             <div className="min-w-[150px] flex-1">
-              <p className="font-semibold">{cap(`${a.nombre} ${a.apPaterno}`)} {estrella === a.id || a.insignias.includes('estrella') ? '⭐' : ''}</p>
-              <div className="mt-1 flex flex-wrap gap-1">{a.insignias.map((k) => { const ins = INSIGNIAS.find((x) => x.key === k); return <span key={k} title={ins?.name} className="text-sm">{ins?.emoji}</span> })}</div>
+              <p className="font-semibold">{cap(`${a.nombre} ${a.apPaterno}`)} {(estrella === a.id || a.insignias.includes('estrella')) && <Star size={15} className="ml-1 inline text-amber-500" fill="currentColor" />}</p>
+              <div className="mt-1 flex flex-wrap gap-1">{a.insignias.map((k) => { const ins = INSIGNIAS.find((x) => x.key === k); return <span key={k} title={ins?.name} className="text-forest"><InsIcon k={k} size={15} /></span> })}</div>
             </div>
             <div className="flex items-center gap-2 rounded-2xl bg-lemon-pale px-2 py-1.5">
               <button onClick={(e) => give(a, -1, e)} className="grid h-8 w-8 place-items-center rounded-xl bg-white text-black/50 hover:text-red-500"><Minus size={15} /></button>
@@ -80,7 +81,7 @@ export default function Reconocimientos() {
 
       {pops.map((p) => (
         <motion.span key={p.id} className="pointer-events-none fixed z-50 font-display text-xl font-extrabold text-amber-500" style={{ left: p.x - 16, top: p.y }} initial={{ y: 0, opacity: 1, scale: .8 }} animate={{ y: -60, opacity: 0, scale: 1.3 }} transition={{ duration: .9 }}>
-          {p.n > 0 ? `+${p.n}` : p.n} 🍋
+          {p.n > 0 ? `+${p.n}` : p.n} L$
         </motion.span>
       ))}
     </div>

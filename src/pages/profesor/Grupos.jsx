@@ -7,6 +7,7 @@ import { useApp } from '../../context/AppContext'
 import { teacherData } from './helpers'
 import { fullName, cap, age, todayISO } from '../../utils/format'
 import { INSIGNIAS } from '../../data/catalogs'
+import { InsIcon } from '../../components/icons'
 
 const asis = { P: ['Presente', 'lime'], R: ['Retardo', 'yellow'], A: ['Falta', 'red'] }
 
@@ -41,7 +42,7 @@ export default function Grupos() {
           <div><p className="text-xs font-bold uppercase tracking-wider text-forest-dark/70">Curso</p><p className="font-display text-lg font-bold">{curso?.nombre}</p></div>
           <div><p className="text-xs font-bold uppercase tracking-wider text-forest-dark/70">Horario</p><p className="font-semibold">{g.horario.map((h) => `${h.dia} ${h.hora}`).join(' · ')}</p></div>
           <div><p className="text-xs font-bold uppercase tracking-wider text-forest-dark/70">Alumnos</p><p className="font-semibold"><Users size={15} className="inline" /> {g.alumnos.length}</p></div>
-          <button onClick={() => toast(`Mensaje enviado al grupo ${g.nombre} 📣`)} className="btn-lime ml-auto !py-2 text-sm"><Send size={15} /> Mensaje al grupo</button>
+          <button onClick={() => toast(`Mensaje enviado al grupo ${g.nombre}`)} className="btn-lime ml-auto !py-2 text-sm"><Send size={15} /> Mensaje al grupo</button>
         </motion.div>
       )}
 
@@ -102,8 +103,8 @@ export default function Grupos() {
                 {INSIGNIAS.map((ins) => {
                   const has = a.insignias.includes(ins.key)
                   return (
-                    <motion.button whileTap={{ scale: .9 }} key={ins.key} disabled={has} onClick={async () => { await api.reconocimientos.insignia(a.id, ins.key); toast(`Insignia "${ins.name}" otorgada 🏅`) }}
-                      className={`chip px-3 py-1.5 text-xs ${has ? 'bg-lime/30 text-forest-dark' : 'border border-dashed border-black/20 bg-white text-black/45 hover:border-lime hover:text-forest'}`}>{ins.emoji} {ins.name}</motion.button>
+                    <motion.button whileTap={{ scale: .9 }} key={ins.key} disabled={has} onClick={async () => { await api.reconocimientos.insignia(a.id, ins.key); toast(`Insignia "${ins.name}" otorgada`) }}
+                      className={`chip px-3 py-1.5 text-xs ${has ? 'bg-lime/30 text-forest-dark' : 'border border-dashed border-black/20 bg-white text-black/45 hover:border-lime hover:text-forest'}`}><InsIcon k={ins.key} size={13} /> {ins.name}</motion.button>
                   )
                 })}
               </div>

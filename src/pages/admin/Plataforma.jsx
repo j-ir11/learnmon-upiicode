@@ -35,7 +35,7 @@ function Modulos() {
         const on = db.modulos.includes(m.key)
         return (
           <motion.button key={m.key} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * .05 }} whileHover={{ y: -4 }}
-            onClick={async () => { if (m.base) { toast('Este módulo forma parte del plan base', 'info'); return } await api.plataforma.toggleModulo(m.key); toast(on ? `${m.name} desactivado` : `${m.name} activado ✨`) }}
+            onClick={async () => { if (m.base) { toast('Este módulo forma parte del plan base', 'info'); return } await api.plataforma.toggleModulo(m.key); toast(on ? `${m.name} desactivado` : `${m.name} activado`) }}
             className={`relative rounded-[24px] border-2 p-5 text-left transition-colors ${on ? 'border-lime bg-white shadow-card' : 'border-dashed border-black/15 bg-white/50'}`}>
             <div className="flex items-start justify-between">
               <span className={`grid h-10 w-10 place-items-center rounded-xl ${on ? 'bg-lime text-ink' : 'bg-black/5 text-black/40'}`}>{m.base ? <Lock size={18} /> : on ? <Check size={18} /> : <Sparkles size={18} />}</span>
@@ -84,7 +84,7 @@ function Cotizador({ onSent }) {
   if (done) {
     return (
       <motion.div initial={{ opacity: 0, scale: .95 }} animate={{ opacity: 1, scale: 1 }} className="card flex flex-col items-center p-10 text-center">
-        <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', damping: 10 }}><Limmy size={110} float acc="🛠️" /></motion.div>
+        <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', damping: 10 }}><Limmy size={110} float acc="wrench" /></motion.div>
         <h3 className="mt-4 font-display text-3xl font-extrabold text-forest">¡Solicitud enviada!</h3>
         <p className="mt-1 max-w-md text-sm text-black/55">Recibimos “<b>{done.titulo}</b>”. Nuestro analista de negocios revisará tu necesidad y te confirmará la cotización por {done.contacto} en menos de 48 horas.</p>
         <div className="mt-5 rounded-2xl bg-sage-soft px-6 py-3"><p className="text-xs font-bold uppercase tracking-wider text-black/45">Cotización preliminar</p><p className="font-display text-2xl font-extrabold">{money(done.cotizacion.min)} – {money(done.cotizacion.max)}</p></div>
@@ -187,13 +187,13 @@ function Solicitudes() {
               </div>
               <div className="mt-5 flex flex-wrap justify-end gap-2">
                 {s.estado === 'Cotizada' && <>
-                  <button onClick={() => toast('Te contactaremos para ajustar la propuesta 💬', 'info')} className="btn-ghost !py-2 text-sm"><MessageSquareText size={15} /> Pedir ajustes</button>
-                  <button onClick={async () => { await api.solicitudes.avanzar(s.id, 'En desarrollo'); toast('¡Cotización aceptada! Iniciamos el desarrollo 🚀') }} className="btn-lime !py-2 text-sm"><Check size={15} /> Aceptar cotización</button>
+                  <button onClick={() => toast('Te contactaremos para ajustar la propuesta', 'info')} className="btn-ghost !py-2 text-sm"><MessageSquareText size={15} /> Pedir ajustes</button>
+                  <button onClick={async () => { await api.solicitudes.avanzar(s.id, 'En desarrollo'); toast('¡Cotización aceptada! Iniciamos el desarrollo') }} className="btn-lime !py-2 text-sm"><Check size={15} /> Aceptar cotización</button>
                 </>}
                 {s.estado !== 'Cotizada' && s.estado !== 'Entregada' && (
                   <button onClick={async () => { await api.solicitudes.avanzar(s.id, STEPS[idx + 1].k); toast(`Estado actualizado: ${STEPS[idx + 1].k}`) }} className="chip bg-black/5 px-3 py-1.5 text-black/50 hover:bg-lime/20">Simular respuesta de {PLATFORM.name} →</button>
                 )}
-                {s.estado === 'Entregada' && <Badge>Activa en tu plan ✨</Badge>}
+                {s.estado === 'Entregada' && <Badge>Activa en tu plan</Badge>}
               </div>
             </motion.div>
           )

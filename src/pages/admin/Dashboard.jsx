@@ -110,7 +110,7 @@ export default function Dashboard() {
                 </motion.div>
               )
             })}
-            {!porCobrar.length && <p className="py-6 text-center text-sm text-black/50">Sin cobros pendientes 🎉</p>}
+            {!porCobrar.length && <p className="py-6 text-center text-sm text-black/50">Sin cobros pendientes</p>}
           </div>
         </Section>
 
@@ -121,7 +121,7 @@ export default function Dashboard() {
               <p className="text-[11px] font-bold uppercase tracking-[.16em] text-forest-dark">Promoción activa</p>
               <p className="mt-1 font-display text-2xl font-extrabold text-forest-deep">{promo.titulo}</p>
               <p className="mt-1 text-sm text-forest-deep/80">{promo.descripcion}</p>
-              <button onClick={() => toast('Recordatorio enviado a 10 alumnos por notificación 📲')} className="mt-4 rounded-full bg-forest px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-dark">Notificar a alumnos</button>
+              <button onClick={() => toast('Recordatorio enviado a 10 alumnos por notificación')} className="mt-4 rounded-full bg-forest px-4 py-2 text-sm font-semibold text-white transition hover:bg-forest-dark">Notificar a alumnos</button>
             </motion.div>
           )}
           <Section delay={.4} title="Alumnos por nivel">

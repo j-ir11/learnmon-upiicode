@@ -9,6 +9,7 @@ import MissionPlayer from './MissionPlayer'
 import { useStudent } from './useStudent'
 import { daysLeftInMonth, fmtDate, isBirthday } from '../../utils/format'
 import { INSIGNIAS, LIMMYS, READINGS } from '../../data/catalogs'
+import { InsIcon } from '../../components/icons'
 import { TENANT } from '../../config/tenant'
 
 export const TIPO_ICON = { Quiz: [ListChecks, 'bg-lime text-ink'], Reading: [BookOpen, 'bg-sky-400 text-white'], Pronunciation: [Mic, 'bg-pink-400 text-white'] }
@@ -27,7 +28,7 @@ export default function Inicio() {
   const todayIdx = (new Date().getDay() + 6) % 7
   const msgs = [
     `¡Hola ${user.nombre.split(' ')[0].toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}! Tienes ${s.pendientes.length} misión(es) esperándote.`,
-    user.racha ? `¡Llevas ${user.racha} días de racha! No la pierdas hoy 🔥` : 'Empieza una racha hoy completando una misión 🔥',
+    user.racha ? `¡Llevas ${user.racha} días de racha! No la pierdas hoy` : 'Empieza una racha hoy completando una misión',
   ]
 
   return (
@@ -37,9 +38,9 @@ export default function Inicio() {
         {bday ? (
           <motion.div initial={{ opacity: 0, scale: .9 }} animate={{ opacity: 1, scale: 1 }} className="relative overflow-hidden rounded-[30px] bg-gradient-to-r from-[#ff9ec0] via-lemon to-lime p-6 shadow-card">
             <div className="flex flex-wrap items-center gap-5">
-              <Limmy size={90} float acc="🎂" />
+              <Limmy size={90} float acc="cake" />
               <div className="flex-1">
-                <p className="font-display text-3xl font-extrabold text-ink">¡Feliz cumpleaños, {user.nombre.split(' ')[0].toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}! 🎉</p>
+                <p className="font-display text-3xl font-extrabold text-ink">¡Feliz cumpleaños, {user.nombre.split(' ')[0].toLowerCase().replace(/^\w/, (c) => c.toUpperCase())}!</p>
                 <p className="text-sm font-semibold text-ink/70">Toda la familia {TENANT.name} te desea un día brillante. Aquí va tu regalo:</p>
               </div>
               <motion.div animate={{ rotate: [0, -3, 3, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="rounded-2xl border-2 border-dashed border-ink/40 bg-white/70 px-5 py-3 text-center">
@@ -107,7 +108,7 @@ export default function Inicio() {
               <motion.button key={m.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: .3 + i * .07 }} whileHover={{ scale: 1.01 }} onClick={() => s.setPlaying(m)}
                 className="flex w-full items-center gap-4 rounded-2xl border-2 border-b-4 border-black/[.07] bg-white p-3 text-left">
                 <span className={`grid h-12 w-12 place-items-center rounded-2xl ${c}`}><I size={22} /></span>
-                <div className="flex-1"><p className="font-bold">{m.titulo}</p><p className="text-xs text-black/45">Vence {fmtDate(m.fechaLimite)} · +{m.recompensa} 🍋 · +{m.xp} XP</p></div>
+                <div className="flex-1"><p className="font-bold">{m.titulo}</p><p className="text-xs text-black/45">Vence {fmtDate(m.fechaLimite)} · +{m.recompensa} L$ · +{m.xp} XP</p></div>
                 <span className="rounded-xl bg-lime px-4 py-2 font-display text-sm font-extrabold uppercase">¡Jugar!</span>
               </motion.button>
             )
@@ -118,22 +119,22 @@ export default function Inicio() {
 
       <div className="grid gap-5 lg:grid-cols-3">
         <div className="card p-6">
-          <p className="mb-3 font-display text-lg font-extrabold">📚 Readings para ti</p>
+          <p className="mb-3 font-display text-lg font-extrabold"> Readings para ti</p>
           {READINGS.filter((r, i) => r.nivel === user.nivel || i < 2).slice(0, 3).map((r) => (
-            <div key={r.id} className="mb-2 flex items-center gap-3 rounded-2xl bg-sage-soft p-3"><span className="text-2xl">{r.emoji}</span><div className="flex-1"><p className="text-sm font-bold">{r.titulo}</p><p className="text-xs text-black/45">{r.min} min</p></div><ChevronRight size={16} className="text-black/30" /></div>
+            <div key={r.id} className="mb-2 flex items-center gap-3 rounded-2xl bg-sage-soft p-3"><BookOpen size={22} className="text-forest" /><div className="flex-1"><p className="text-sm font-bold">{r.titulo}</p><p className="text-xs text-black/45">{r.min} min</p></div><ChevronRight size={16} className="text-black/30" /></div>
           ))}
         </div>
         <div className="card p-6">
-          <p className="mb-3 font-display text-lg font-extrabold">🏅 Insignias</p>
+          <p className="mb-3 font-display text-lg font-extrabold"> Insignias</p>
           <div className="grid grid-cols-3 gap-2">
             {INSIGNIAS.map((ins, i) => { const has = user.insignias.includes(ins.key); return (
               <motion.div key={ins.key} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .3 + i * .05, type: 'spring' }} title={ins.desc} className={`flex flex-col items-center rounded-2xl p-2 text-center ${has ? 'bg-lemon-pale' : 'bg-black/[.03] opacity-40 grayscale'}`}>
-                <span className="text-2xl">{ins.emoji}</span><span className="text-[10px] font-bold leading-tight">{ins.name}</span>
+                <InsIcon k={ins.key} className="text-forest" /><span className="text-[10px] font-bold leading-tight">{ins.name}</span>
               </motion.div>) })}
           </div>
         </div>
         <button onClick={() => navigate('/alumno/coleccion')} className="card p-6 text-left transition hover:-translate-y-1">
-          <p className="mb-3 font-display text-lg font-extrabold">✨ Mis Limmys</p>
+          <p className="mb-3 font-display text-lg font-extrabold"> Mis Limmys</p>
           <div className="flex -space-x-3">
             {LIMMYS.filter((l) => user.limmys.includes(l.key)).map((l) => <span key={l.key} className={`grid h-14 w-14 place-items-center rounded-full border-4 border-white bg-gradient-to-br ${l.bg}`}><Limmy size={34} acc={l.acc} /></span>)}
           </div>

@@ -61,7 +61,7 @@ export default function Login() {
                 <label className="flex cursor-pointer items-center gap-2 font-semibold text-black/60">
                   <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="h-5 w-5 rounded-md accent-lime" /> Recordarme
                 </label>
-                <button type="button" onClick={() => toast('Te enviamos un enlace a tu correo registrado 📩', 'info')} className="font-bold text-forest hover:underline">¿Olvidaste tu clave?</button>
+                <button type="button" onClick={() => toast('Te enviamos un enlace a tu correo registrado', 'info')} className="font-bold text-forest hover:underline">¿Olvidaste tu clave?</button>
               </div>
               <AnimatePresence>{error && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs font-semibold text-red-500">{error}</motion.p>}</AnimatePresence>
               <motion.button whileHover={{ y: -2 }} whileTap={{ scale: .98 }} className="mt-6 rounded-full bg-lime py-3 font-bold text-ink shadow-lime">Iniciar Sesión</motion.button>

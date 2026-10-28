@@ -20,7 +20,7 @@ export default function Lab() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-3xl font-extrabold">Pronunciation Lab 🎙️</h2>
+        <h2 className="font-display text-3xl font-extrabold">Pronunciation Lab</h2>
         <p className="text-sm text-black/50">Escucha la palabra, repítela en voz alta y el asistente te dice si la pronunciaste bien.</p>
       </div>
       <div className="flex flex-wrap gap-2">

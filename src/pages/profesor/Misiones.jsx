@@ -40,7 +40,7 @@ export default function Misiones() {
     if (form.tipo !== 'Pronunciation' && !preguntas.length) { toast('Agrega al menos una pregunta completa', 'warn'); return }
     setBusy(true)
     await api.misiones.create({ ...form, grupoId: Number(form.grupoId), recompensa: Number(form.recompensa), xp: Number(form.xp), preguntas, palabras: form.palabras.split(',').map((w) => w.trim()).filter(Boolean), creada: todayISO(), completadas: {} })
-    setBusy(false); setForm(null); toast('Misión asignada 🚀 Los alumnos ya la ven en Learnmon')
+    setBusy(false); setForm(null); toast('Misión asignada Los alumnos ya la ven en Learnmon')
   }
   const updQ = (i, p) => set({ preguntas: form.preguntas.map((q, j) => (j === i ? { ...q, ...p } : q)) })
 
@@ -88,11 +88,11 @@ export default function Misiones() {
       </div>
 
       <div className="card p-6">
-        <p className="mb-3 font-display text-lg font-extrabold">📚 Recomendar lecturas de Reading Tree</p>
+        <p className="mb-3 font-display text-lg font-extrabold"> Recomendar lecturas de Reading Tree</p>
         <div className="flex flex-wrap gap-3">
           {READINGS.map((r) => (
-            <button key={r.id} onClick={() => toast(`"${r.titulo}" recomendada a tus grupos 📖`)} className="flex items-center gap-3 rounded-2xl border border-black/5 bg-white px-4 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-lime">
-              <span className="text-2xl">{r.emoji}</span><span><span className="block text-sm font-bold">{r.titulo}</span><span className="text-xs text-black/45">{r.nivel} · {r.min} min</span></span>
+            <button key={r.id} onClick={() => toast(`"${r.titulo}" recomendada a tus grupos`)} className="flex items-center gap-3 rounded-2xl border border-black/5 bg-white px-4 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-lime">
+              <BookOpen size={22} className="text-forest" /><span><span className="block text-sm font-bold">{r.titulo}</span><span className="text-xs text-black/45">{r.nivel} · {r.min} min</span></span>
             </button>
           ))}
         </div>

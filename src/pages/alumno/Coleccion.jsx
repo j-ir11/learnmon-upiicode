@@ -4,6 +4,7 @@ import { Lock } from 'lucide-react'
 import { Limmy } from '../../components/ui'
 import { useApp } from '../../context/AppContext'
 import { LIMMYS, INSIGNIAS } from '../../data/catalogs'
+import { InsIcon } from '../../components/icons'
 
 export default function Coleccion() {
   const { user } = useApp()
@@ -23,7 +24,7 @@ export default function Coleccion() {
               className={`relative flex flex-col items-center rounded-[26px] border-2 border-b-[6px] p-5 ${has ? `border-white bg-gradient-to-br ${l.bg} shadow-card` : 'border-black/5 bg-black/[.03]'}`}>
               <div className={has ? '' : 'opacity-25 brightness-0'}><Limmy size={86} acc={l.acc} float={has} /></div>
               <p className="mt-3 font-display text-base font-extrabold">{has ? l.name : '???'}</p>
-              {!has && <p className="flex items-center gap-1 text-xs font-semibold text-black/40"><Lock size={12} /> {Math.max(0, l.need - user.misionesHechas)} misiones más</p>}
+              {!has && <p className="flex items-center gap-1 text-xs font-semibold text-black/40"><Lock size={12} /> {Math.max(0, l.need - user.misionesHechas)} {l.need - user.misionesHechas === 1 ? 'misión' : 'misiones'} más</p>}
             </motion.button>
           )
         })}
@@ -33,7 +34,7 @@ export default function Coleccion() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {INSIGNIAS.map((ins, i) => { const has = user.insignias.includes(ins.key); return (
             <motion.div key={ins.key} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: .3 + i * .05, type: 'spring' }} className={`rounded-2xl p-4 text-center ${has ? 'bg-white shadow-card' : 'bg-black/[.03] opacity-40 grayscale'}`}>
-              <p className="text-4xl">{ins.emoji}</p><p className="mt-1 text-sm font-bold">{ins.name}</p><p className="text-[11px] text-black/45">{ins.desc}</p>
+              <div className="flex justify-center text-forest"><InsIcon k={ins.key} size={34} /></div><p className="mt-1 text-sm font-bold">{ins.name}</p><p className="text-[11px] text-black/45">{ins.desc}</p>
             </motion.div>) })}
         </div>
       </div>

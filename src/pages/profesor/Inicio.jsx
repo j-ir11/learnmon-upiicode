@@ -34,7 +34,7 @@ export default function Inicio() {
           <Limmy size={86} float />
           <div className="flex-1">
             <p className="text-xs font-bold uppercase tracking-[.2em] text-lime">{new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
-            <h2 className="font-display text-3xl font-extrabold">{saludo}, teacher {user.nombre} 👋</h2>
+            <h2 className="font-display text-3xl font-extrabold">{saludo}, teacher {user.nombre}</h2>
             <p className="text-sm text-white/75">Tienes <b className="text-lime">{t.alertas.filter((a) => a.tipo !== 'sobresaliente').length} alumno(s)</b> que necesitan seguimiento y <b className="text-lime">{clases.filter((c) => isToday(c.when)).length} clase(s)</b> hoy.</p>
           </div>
         </div>
@@ -75,14 +75,14 @@ export default function Inicio() {
                       <p className="text-xs text-black/50">{al.det}</p>
                     </div>
                     {al.tipo === 'sobresaliente'
-                      ? <button onClick={async () => { await api.reconocimientos.lemonDollars(al.a.id, 5); toast(`+5 Lemon Dollars para ${al.a.nombre.split(' ')[0]} 🍋`) }} className="chip bg-lime px-3 py-1.5 text-ink"><Coins size={13} /> Dar 5 L$</button>
-                      : <button onClick={() => toast(`Recordatorio enviado a ${al.a.nombre.split(' ')[0]} y su tutor 📲`)} className="chip bg-white px-3 py-1.5 text-forest-dark shadow-sm"><Send size={13} /> Recordar</button>}
+                      ? <button onClick={async () => { await api.reconocimientos.lemonDollars(al.a.id, 5); toast(`+5 Lemon Dollars para ${al.a.nombre.split(' ')[0]}`) }} className="chip bg-lime px-3 py-1.5 text-ink"><Coins size={13} /> Dar 5 L$</button>
+                      : <button onClick={() => toast(`Recordatorio enviado a ${al.a.nombre.split(' ')[0]} y su tutor`)} className="chip bg-white px-3 py-1.5 text-forest-dark shadow-sm"><Send size={13} /> Recordar</button>}
                     <button onClick={() => navigate(`/profesor/grupos?alumno=${al.a.id}`)} className="grid h-8 w-8 place-items-center rounded-lg bg-white/70 hover:bg-white"><ChevronRight size={16} /></button>
                   </motion.div>
                 )
               })}
             </AnimatePresence>
-            {!t.alertas.length && <p className="py-8 text-center text-sm text-black/50">Todo en orden. ¡Tus alumnos van excelente! 🍋</p>}
+            {!t.alertas.length && <p className="py-8 text-center text-sm text-black/50">Todo en orden. ¡Tus alumnos van excelente!</p>}
           </div>
         </Section>
 

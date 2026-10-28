@@ -138,14 +138,14 @@ export const api = {
       await wait(250)
       const a = db.usuarios.find((u) => u.id === alumnoId)
       a.lemonDollars = Math.max(0, (a.lemonDollars || 0) + cantidad)
-      db.notificaciones.push({ id: nextId(db.notificaciones), alumnoId, texto: `¡Tu profesor te dio ${cantidad} Lemon Dollars! 🍋`, fecha: todayISO() })
+      db.notificaciones.push({ id: nextId(db.notificaciones), alumnoId, texto: `¡Tu profesor te dio ${cantidad} Lemon Dollars!`, fecha: todayISO() })
       commit()
     },
     async insignia(alumnoId, key) {
       await wait(300)
       const a = db.usuarios.find((u) => u.id === alumnoId)
       if (!a.insignias.includes(key)) a.insignias.push(key)
-      db.notificaciones.push({ id: nextId(db.notificaciones), alumnoId, texto: '¡Ganaste una nueva insignia! 🏅', fecha: todayISO() })
+      db.notificaciones.push({ id: nextId(db.notificaciones), alumnoId, texto: '¡Ganaste una nueva insignia!', fecha: todayISO() })
       commit()
     },
   },

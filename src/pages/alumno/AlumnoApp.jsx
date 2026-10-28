@@ -60,7 +60,7 @@ export default function AlumnoApp() {
               <AnimatePresence>{bell && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute right-0 top-12 w-72 rounded-2xl bg-white p-3 shadow-2xl">
                   <p className="px-1 pb-2 text-xs font-bold uppercase tracking-wider text-forest">Mensajes de Limmy</p>
-                  {notis.length ? notis.map((n) => <p key={n.id} className="rounded-xl px-2 py-2 text-sm hover:bg-sage-soft">{n.texto}</p>) : <p className="px-2 py-3 text-sm text-black/50">¡Estás al día! 🍋</p>}
+                  {notis.length ? notis.map((n) => <p key={n.id} className="rounded-xl px-2 py-2 text-sm hover:bg-sage-soft">{n.texto}</p>) : <p className="px-2 py-3 text-sm text-black/50">¡Estás al día!</p>}
                 </motion.div>)}
               </AnimatePresence>
             </div>

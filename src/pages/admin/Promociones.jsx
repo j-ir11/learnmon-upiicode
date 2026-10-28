@@ -24,7 +24,7 @@ export default function Promociones() {
     setBusy(true)
     const data = { ...form, valor: Number(form.valor) }
     if (form.id) await api.promociones.update(form.id, data); else await api.promociones.create(data)
-    setBusy(false); setForm(null); toast(form.id ? 'Promoción actualizada' : 'Promoción creada y publicada 🎉')
+    setBusy(false); setForm(null); toast(form.id ? 'Promoción actualizada' : 'Promoción creada y publicada')
   }
 
   return (

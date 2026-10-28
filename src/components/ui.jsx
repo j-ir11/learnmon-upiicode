@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, animate } from 'framer-motion'
 import { Eye, EyeOff, Lock, CalendarDays, ChevronDown, Play, Navigation, X } from 'lucide-react'
 import limmyImg from '../assets/limmy.png'
+import { ICONS } from './icons'
 import { TENANT } from '../config/tenant'
 
 // ── Limmy ───────────────────────────────────────────────────
@@ -11,7 +12,8 @@ export function Limmy({ size = 120, float = false, className = '', acc = '' }) {
       animate={float ? { y: [0, -8, 0] } : undefined}
       transition={float ? { duration: 3, repeat: Infinity, ease: 'easeInOut' } : undefined}>
       <img src={limmyImg} alt={TENANT.mascot} draggable={false} className="w-full drop-shadow-[0_10px_14px_rgba(160,140,0,.25)]" />
-      {acc && <span className="absolute -top-[18%] left-1/2 -translate-x-1/2" style={{ fontSize: size * 0.42 }}>{acc}</span>}
+      {acc && ICONS[acc] && (() => { const I = ICONS[acc]; const d = Math.max(18, size * 0.36); return (
+        <span className="absolute -right-[6%] -top-[6%] grid place-items-center rounded-full border-2 border-white bg-forest text-white shadow-md" style={{ width: d, height: d }}><I size={d * 0.55} /></span>) })()}
     </motion.div>
   )
 }

@@ -29,7 +29,7 @@ export function PronounceWord({ word, onResult }) {
       <motion.p key={word} initial={{ scale: .6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="font-display text-6xl font-extrabold text-forest">{word}</motion.p>
       <div className="mt-6 flex gap-3">
         <button onClick={() => say(word)} className="flex items-center gap-2 rounded-2xl border-2 border-black/10 bg-white px-5 py-3 font-bold"><Volume2 size={20} /> Escuchar</button>
-        <button onClick={() => say(word, .45)} className="rounded-2xl border-2 border-black/10 bg-white px-4 py-3 text-sm font-bold">🐢 Lento</button>
+        <button onClick={() => say(word, .45)} className="rounded-2xl border-2 border-black/10 bg-white px-4 py-3 text-sm font-bold">Más lento</button>
       </div>
       <motion.button whileTap={{ scale: .92 }} onClick={listen} animate={state === 'listening' ? { scale: [1, 1.08, 1] } : {}} transition={{ repeat: state === 'listening' ? Infinity : 0, duration: 1 }}
         className={`mt-6 grid h-24 w-24 place-items-center rounded-full text-white shadow-xl ${state === 'listening' ? 'bg-red-500' : state === 'ok' ? 'bg-lime !text-ink' : 'bg-forest'}`}>
@@ -38,7 +38,7 @@ export function PronounceWord({ word, onResult }) {
       <p className="mt-3 h-5 text-sm font-semibold text-black/50">
         {state === 'idle' && (Rec ? 'Toca el micrófono y di la palabra' : 'Tu navegador no tiene reconocimiento de voz: practica y toca el micrófono')}
         {state === 'listening' && 'Te escucho…'}
-        {state === 'ok' && '¡Excelente pronunciación! 🎉'}
+        {state === 'ok' && '¡Excelente pronunciación!'}
         {state === 'retry' && `Escuché "${heard || '…'}". ¡Inténtalo otra vez!`}
       </p>
     </div>
@@ -97,7 +97,7 @@ export default function MissionPlayer({ mission, onClose, onFinish }) {
               {result.unlocked && (
                 <motion.div initial={{ scale: 0, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ delay: .6, type: 'spring', damping: 10 }} className="mx-auto mt-5 max-w-sm rounded-2xl bg-forest p-4 text-white">
                   <p className="text-xs font-bold uppercase tracking-widest text-lime">¡Nuevo coleccionable!</p>
-                  <p className="font-display text-xl font-bold">{result.unlocked.acc} {result.unlocked.name}</p>
+                  <p className="font-display text-xl font-bold">{result.unlocked.name}</p>
                 </motion.div>
               )}
               <button onClick={onClose} className="btn-lime mx-auto mt-8 w-full max-w-sm !py-4 text-lg">Continuar</button>
@@ -146,7 +146,7 @@ export default function MissionPlayer({ mission, onClose, onFinish }) {
           <div className="mx-auto flex max-w-3xl items-center gap-4 px-5 py-5">
             <AnimatePresence>{answered && (
               <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex-1 font-display text-xl font-extrabold ${right ? 'text-forest' : 'text-red-500'}`}>
-                {right ? '¡Correcto! 🍋' : `Respuesta: ${q.opts[q.a]}`}
+                {right ? '¡Correcto!' : `Respuesta: ${q.opts[q.a]}`}
               </motion.p>)}
             </AnimatePresence>
             {!answered && <span className="flex-1" />}

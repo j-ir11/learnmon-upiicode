@@ -74,7 +74,7 @@ export default function Conversacion() {
         </div>
       </div>
       <ConfirmDialog open={!!pick} title="Reservar conversación" text={pick && `¿Reservar 1 hora el ${new Date(pick.f + 'T12:00').toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })} a las ${pick.h}?`} confirmText="Reservar"
-        onCancel={() => setPick(null)} onConfirm={async () => { await api.alumno.reservar(user.id, pick.f, pick.h); setPick(null); toast('¡Reservado! Te esperamos 🍋') }} />
+        onCancel={() => setPick(null)} onConfirm={async () => { await api.alumno.reservar(user.id, pick.f, pick.h); setPick(null); toast('¡Reservado! Te esperamos') }} />
       <ConfirmDialog open={!!cancel} danger title="Cancelar reserva" text="¿Seguro que quieres liberar esta hora?" confirmText="Cancelar reserva"
         onCancel={() => setCancel(null)} onConfirm={async () => { await api.alumno.cancelarReserva(cancel.id); setCancel(null); toast('Reserva cancelada') }} />
     </div>
